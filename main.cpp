@@ -9,6 +9,7 @@ int Menu();
 void Option_1();
 void Option_2();
 void Option_3();
+void isOptionDigit(string&);
 
 // Declaring global object
 ClassManagement student;
@@ -71,12 +72,34 @@ int Menu()
   do
   {
     cin >> choice;
-    student.is_digit(choice);
+    isOptionDigit(choice);
     num = stoi(choice);
     if (num != 1 && num != 2 && num != 3)
       cout << "You have entered invalid option\nEnter option again....";
   } while (num != 1 && num != 2 && num != 3);
   return num;
+}
+
+void isOptionDigit(string &score)
+{
+    bool flag = 1;
+    while (flag)
+    {
+        flag = 0;
+        for (int i = 0; i < score.length(); i++)
+        {
+            if (!isdigit(score[i]) && score[i] != '.' && score[i] != '+' && score[i] != '-') // if score[i] is a number, this condition will evaluate to false else it will evaluate to true.
+            {
+                flag = 1;
+                break;
+            }
+        }
+        if (flag)
+        {
+            cout<< "ERROR : Invalid Option\nEnter option again... ";
+            getline(cin >> std::ws, score);
+        }
+    }
 }
 
 void Option_1()
