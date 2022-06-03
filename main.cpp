@@ -150,8 +150,8 @@ void Option_3()
   cout << "-------------------------------------------------------\n"
        << "|  THANK YOU FOR USING HACKERSGODDEST GRADING SYSTEM  |\n"
        << "-------------------------------------------------------\n";
-  cin.get();
   cout<<"\nPress any key to EXIT...";
+  cin.get();
   cin.get();
   exit(0);
 }
