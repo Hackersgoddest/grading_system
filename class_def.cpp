@@ -20,7 +20,22 @@ using std::transform;
 using std::ws;
 
 // ClassManagement class member functions definitions
-
+ClassManagement::ClassManagement() { // Default constructor definition
+  string welcomeMessage = "WELCOME TO HACKERSGODDEST GRADING SYSTEM";
+  string len, non, bef;
+  len.assign(welcomeMessage.length() + 4, '*');
+  non.assign(welcomeMessage.length() + 2, ' ');
+  bef.assign(welcomeMessage.length() - 20, ' ');
+  
+  cout << endl << bef << len << endl
+       << bef << '*' << non << '*' << endl
+       << bef << "* " << welcomeMessage << " *" << endl
+       << bef << '*' << non << '*' << endl
+       << bef << len << endl;
+  placeCursor(screen, 8, 20);
+  system("PAUSE");
+  system("cls");
+}
 // Functions for console cursor controls
 
 void ClassManagement::isEmpty(string& name, int x, int y)

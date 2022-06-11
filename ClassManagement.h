@@ -45,6 +45,7 @@ private:
   int StudentsAboveAvg, StudentsBelowAvg, StudentsExactAvg;
 
 public:
+  ClassManagement(); // Default constructor
   // Creating member functions
   // For console cursor control
   HANDLE screen = GetStdHandle(STD_OUTPUT_HANDLE);

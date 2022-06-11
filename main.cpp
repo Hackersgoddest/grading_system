@@ -3,13 +3,12 @@
 using std::cin;
 using std::cout;
 using std::endl;
-// Declaring function prototype
-void WelcomeMessage();
+
 int Menu();
 void Option_1();
 void Option_2();
 void Option_3();
-void isOptionDigit(string&);
+void isOptionDigit(string &);
 
 // Declaring global object
 ClassManagement student;
@@ -17,7 +16,7 @@ int main()
 {
 
   int choice;
-  WelcomeMessage();
+  // WelcomeMessage();
 
   do
   {
@@ -28,33 +27,9 @@ int main()
       Option_2();
   } while (choice != 3);
   Option_3();
-
-  system("PAUSE");
-
   return 0;
 }
 
-// Defining functions prototypes
-
-void WelcomeMessage()
-{ // Printing a welcoming message.
-
-  string welcomeMessage = "WELCOME TO HACKERSGODDEST GRADING SYSTEM";
-  string len, non, bef;
-  len.assign(welcomeMessage.length() + 4, '*');
-  non.assign(welcomeMessage.length() + 2, ' ');
-  bef.assign(welcomeMessage.length() - 20, ' ');
-
-  cout << bef << len << endl
-       << bef << '*' << non << '*' << endl
-       << bef << "* " << welcomeMessage << " *" << endl
-       << bef << '*' << non << '*' << endl
-       << bef << len << endl
-       << "                     A PROGRAM TO RECORD CLASS INFORMATION\n"
-       << "       THAT'S NAMES OF STUDENTS AND THEIR CORRESPONDING IDs, SCORES AND GRADES  \n";
-  system("PAUSE");
-  system("cls");
-}
 HANDLE screen = GetStdHandle(STD_OUTPUT_HANDLE);
 
 int Menu()
@@ -62,44 +37,70 @@ int Menu()
   system("cls");
   int num;
   string choice;
-  cout << "\n  ----------------------------------"
-       << "\n  | HACKERSGODDEST GRADDING SYSTEM |\n"
-       << "  ----------------------------------\n"
-       << "1. RECORD CLASS INFORMATION TO A FILE" << endl
-       << "2. RETRIEVE CLASS INFORMATION FROM A FILE" << endl
-       << "3. EXIT THE PROGRAM" << endl
-       << "Enter option....";
+  student.placeCursor(screen, 3, 20);
+  cout << "  ----------------------------------\n";
+  student.placeCursor(screen, 4, 20);
+  cout << "  | HACKERSGODDEST GRADDING SYSTEM |\n";
+  student.placeCursor(screen, 5, 20);
+  cout << "  ----------------------------------\n";
+  student.placeCursor(screen, 6, 20);
+  cout << "1. RECORD CLASS INFORMATION TO A FILE" << endl;
+  student.placeCursor(screen, 7, 20);
+  cout << "2. RETRIEVE CLASS INFORMATION FROM A FILE" << endl;
+  student.placeCursor(screen, 8, 20);
+  cout << "3. EXIT THE PROGRAM" << endl;
+  student.placeCursor(screen, 9, 20);
+  cout << "Enter option...";
   do
   {
-    cin >> choice;
+    student.placeCursor(screen, 9, 35);
+    getline(cin, choice);
+    while (choice.empty())
+    {
+      student.placeCursor(screen, 9, 35);
+      getline(cin, choice);
+    }
     isOptionDigit(choice);
     num = stoi(choice);
     if (num != 1 && num != 2 && num != 3)
-      cout << "You have entered invalid option\nEnter option again....";
+      student.placeCursor(screen, 10, 20);
+    cout << "You have entered invalid option\n";
+    student.placeCursor(screen, 9, 20);
+    cout << "Enter option...";
   } while (num != 1 && num != 2 && num != 3);
+  system("cls");
   return num;
 }
 
 void isOptionDigit(string &score)
 {
-    bool flag = 1;
-    while (flag)
+  bool flag = 1;
+  while (flag)
+  {
+    flag = 0;
+    for (int i = 0; i < score.length(); i++)
     {
-        flag = 0;
-        for (int i = 0; i < score.length(); i++)
-        {
-            if (!isdigit(score[i]) && score[i] != '.' && score[i] != '+' && score[i] != '-') // if score[i] is a number, this condition will evaluate to false else it will evaluate to true.
-            {
-                flag = 1;
-                break;
-            }
-        }
-        if (flag)
-        {
-            cout<< "ERROR : Invalid Option\nEnter option again... ";
-            getline(cin >> std::ws, score);
-        }
+      if (!isdigit(score[i]) && score[i] != '.' && score[i] != '+' && score[i] != '-') // if score[i] is a number, this condition will evaluate to false else it will evaluate to true.
+      {
+        flag = 1;
+        break;
+      }
     }
+    if (flag)
+    {
+      student.placeCursor(screen, 10, 20);
+      cout << "You have entered invalid option\n";
+      student.placeCursor(screen, 9, 20);
+      cout << "Enter option...";
+      student.placeCursor(screen, 9, 35);
+      getline(cin, score);
+      while (score.empty())
+      {
+        student.placeCursor(screen, 9, 35);
+        getline(cin, score);
+      }
+    }
+  }
 }
 
 void Option_1()
@@ -150,8 +151,7 @@ void Option_3()
   cout << "-------------------------------------------------------\n"
        << "|  THANK YOU FOR USING HACKERSGODDEST GRADING SYSTEM  |\n"
        << "-------------------------------------------------------\n";
-  cout<<"\nPress any key to EXIT...";
-  cin.get();
+  cout << "\nPress any key to EXIT...";
   cin.get();
   exit(0);
 }
