@@ -38,11 +38,11 @@ int Menu()
   int num;
   string choice;
   student.placeCursor(screen, 3, 20);
-  cout << "  ----------------------------------\n";
+  cout << "----------------------------------\n";
   student.placeCursor(screen, 4, 20);
-  cout << "  | HACKERSGODDEST GRADDING SYSTEM |\n";
+  cout << "| HACKERSGODDEST GRADDING SYSTEM |\n";
   student.placeCursor(screen, 5, 20);
-  cout << "  ----------------------------------\n";
+  cout << "----------------------------------\n";
   student.placeCursor(screen, 6, 20);
   cout << "1. RECORD CLASS INFORMATION TO A FILE" << endl;
   student.placeCursor(screen, 7, 20);
@@ -105,7 +105,7 @@ void isOptionDigit(string &score)
 
 void Option_1()
 {
-  student.setFileName();
+  student.setFilePath();
   student.studentInfoForm(screen);
   student.getStudentNames();
   if (student.returnName() == "DONE")
@@ -141,7 +141,7 @@ void Option_1()
 
 void Option_2()
 {
-  student.setFileName();
+  student.setFilePath();
   student.readFromFile();
   system("PAUSE");
 }
