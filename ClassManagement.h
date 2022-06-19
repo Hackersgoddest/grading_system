@@ -13,11 +13,11 @@ class ClassManagement // Create a class called classManagement
 {
 private:
   // Declaring data members
-  int index = 0;
+  int student_index = 0;
   string score;
   vector<string> StudentName, // An array to contain the names of the students
       StudentId,              // An array to contain to students Identification numbers(IDs)
-      StudentLetterGrade,     // An array to contain the letter grade of the students(i.e from A to F)
+      StudentGrade,     // An array to contain the letter grade of the students(i.e from A to F)
       Student_pass_names,
       Student_pass_ids,
       Student_fail_names,
@@ -28,9 +28,9 @@ private:
       Student_below_avg_ids,
       Student_exact_avg_names,
       Student_exact_avg_ids;
-  string file_name; // A variable to hold the file name;
+  string file_path; // A variable to hold the file name;
 
-  vector<float> StudentNumGrade; // An array to contain the students final scores
+  vector<float> StudentTotalScore; // An array to contain the students final scores
 
   /*
    * ClassAvg is a variable to hold the class average score
@@ -56,8 +56,8 @@ public:
   void studentInfoForm(HANDLE screen);
   // For files operations functions
   void readFromFile();
-  void setFileName();
-  string getFileName() { return file_name; }
+  void setFilePath();
+  string getFilePath() { return file_path; }
 
 
   void getStudentNames();       // A function to take student name from the user.
@@ -72,18 +72,18 @@ public:
   void ClassInfo();             // A function to  display the student informations(i.e their names,ids,total score and letter grade)
   void ClassEvaluation();       // A function to display the class summary(i.e average class score,highest score,lowest score, and student who score above,below and exact as class average)
   string line();
-  string returnName(){ return StudentName[index];} // A function to access the name of the students in the main function
-  string returnId(){ return StudentId[index];} // A function to access the ids of the students in the main function
-  float returnNumGrade() { return StudentNumGrade[index];} // A function to access the student total score in the main function
-  string returnLetterGrade(){ return StudentLetterGrade[index];}// A function to access the student letter grade in the main function
-  float returnClassAvg(){  ClassAvg = ClassTotalScore / index; return ClassAvg;}// A function to calculate and accesss the class average score in the main function
+  string returnName(){ return StudentName[student_index];} // A function to access the name of the students in the main function
+  string returnId(){ return StudentId[student_index];} // A function to access the ids of the students in the main function
+  float returnNumGrade() { return StudentTotalScore[student_index];} // A function to access the student total score in the main function
+  string returnLetterGrade(){ return StudentGrade[student_index];}// A function to access the student letter grade in the main function
+  float returnClassAvg(){  ClassAvg = ClassTotalScore / student_index; return ClassAvg;}// A function to calculate and accesss the class average score in the main function
   float returnHighestScore(){ return HighestScore;}// A function to access the class highest score in the main function
   float returnLowestScore(){ return LowestScore;}// A function to access the classs lowest score in the main function
   int returnAboveAvg(){ return StudentsAboveAvg;}// A function to access the number of students who score above class average
   int returnBelowAvg(){ return StudentsBelowAvg;}// A function to access the number of students who score below class average
   int returnExactAvg()
   { return StudentsExactAvg;}// A function to access the number of students who score exact as the class average
-  int getIndex(){return index;} // A function to access the value of i in the main function
+  int getIndex(){return student_index;} // A function to access the value of i in the main function
   void is_alpha(string &);
   void is_alphaNum(string &);
   void is_digit(string &);
