@@ -107,28 +107,28 @@ void Option_1()
 {
   student.setFilePath();
   student.studentInfoForm(screen);
-  student.getStudentNames();
-  if (student.returnName() == "DONE")
+  student.setStudentName();
+  if (student.getStudentName() == "DONE")
     return;
-  student.getStudentId();
-  student.getStudentNumGrade();
-  student.getStudentLetterGrade();
+  student.setStudentId();
+  student.setStudentTotalScore();
+  student.setStudentGrade();
   student.clearInput();
   student.firstAssign();
 
   ++student;
-  student.getStudentNames();
-  while (student.returnName() != "DONE")
+  student.setStudentName();
+  while (student.getStudentName() != "DONE")
   {
-    student.getStudentId();
-    student.getStudentNumGrade();
-    student.getStudentLetterGrade();
+    student.setStudentId();
+    student.setStudentTotalScore();
+    student.setStudentGrade();
     student.clearInput();
     student.otherCalculations();
     ++student;
-    student.getStudentNames();
+    student.setStudentName();
   }
-  student.returnClassAvg();
+  student.getClassAvg();
   student.Sorting();
   if (student.getIndex() != 0)
   {
