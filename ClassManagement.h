@@ -68,6 +68,7 @@ public:
   int operator++();             // Is an operator overloading function
   void otherCalculations();     // A function to update the class total score, highest score and the lowest score as the user inputs student informations from the second time going
   void Sorting();               // A function to sort the students by the first letter of their names in alphabetical order
+  void SwapStudentInfo(int&, int&); // A function to perform swapping of student information during sorting
   void TableHeader();           // A function to display the statistical header of the classs information
   void ClassInfo();             // A function to  display the student informations(i.e their names,ids,total score and letter grade)
   void ClassEvaluation();       // A function to display the class summary(i.e average class score,highest score,lowest score, and student who score above,below and exact as class average)
