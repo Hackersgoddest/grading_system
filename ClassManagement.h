@@ -60,10 +60,10 @@ public:
   string getFilePath() { return file_path; }
 
 
-  void getStudentNames();       // A function to take student name from the user.
-  void getStudentId();          // A function to take student id from the user.
-  void getStudentNumGrade();    // A function to take student total score from the user
-  void getStudentLetterGrade(); // A function to convert student total score to a letter grade
+  void setStudentName();       // A function to take student name from the user.
+  void setStudentId();          // A function to take student id from the user.
+  void setStudentTotalScore();    // A function to take student total score from the user
+  void setStudentGrade(); // A function to convert student total score to a letter grade
   void firstAssign();           // A function to initialize the class total score, highest score and the lowest score the first time the user inputs student informations
   int operator++();             // Is an operator overloading function
   void otherCalculations();     // A function to update the class total score, highest score and the lowest score as the user inputs student informations from the second time going
@@ -72,16 +72,16 @@ public:
   void ClassInfo();             // A function to  display the student informations(i.e their names,ids,total score and letter grade)
   void ClassEvaluation();       // A function to display the class summary(i.e average class score,highest score,lowest score, and student who score above,below and exact as class average)
   string line();
-  string returnName(){ return StudentName[student_index];} // A function to access the name of the students in the main function
-  string returnId(){ return StudentId[student_index];} // A function to access the ids of the students in the main function
-  float returnNumGrade() { return StudentTotalScore[student_index];} // A function to access the student total score in the main function
-  string returnLetterGrade(){ return StudentGrade[student_index];}// A function to access the student letter grade in the main function
-  float returnClassAvg(){  ClassAvg = ClassTotalScore / student_index; return ClassAvg;}// A function to calculate and accesss the class average score in the main function
-  float returnHighestScore(){ return HighestScore;}// A function to access the class highest score in the main function
-  float returnLowestScore(){ return LowestScore;}// A function to access the classs lowest score in the main function
-  int returnAboveAvg(){ return StudentsAboveAvg;}// A function to access the number of students who score above class average
-  int returnBelowAvg(){ return StudentsBelowAvg;}// A function to access the number of students who score below class average
-  int returnExactAvg()
+  string getStudentName(){ return StudentName[student_index];} // A function to access the name of the students in the main function
+  string getStudentId(){ return StudentId[student_index];} // A function to access the ids of the students in the main function
+  float getStudentTotalScore() { return StudentTotalScore[student_index];} // A function to access the student total score in the main function
+  string getStudentGrade(){ return StudentGrade[student_index];}// A function to access the student letter grade in the main function
+  float getClassAvg(){  ClassAvg = ClassTotalScore / student_index; return ClassAvg;}// A function to calculate and accesss the class average score in the main function
+  float getHighestScore(){ return HighestScore;}// A function to access the class highest score in the main function
+  float getLowestScore(){ return LowestScore;}// A function to access the classs lowest score in the main function
+  int getAboveAvg(){ return StudentsAboveAvg;}// A function to access the number of students who score above class average
+  int getBelowAvg(){ return StudentsBelowAvg;}// A function to access the number of students who score below class average
+  int getExactAvg()
   { return StudentsExactAvg;}// A function to access the number of students who score exact as the class average
   int getIndex(){return student_index;} // A function to access the value of i in the main function
   void is_alpha(string &);
