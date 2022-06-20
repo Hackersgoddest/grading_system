@@ -320,38 +320,48 @@ void ClassManagement::otherCalculations()
     }
 }
 
+void ClassManagement::SwapStudentInfo(int &start, int &index)
+{
+    string name_temp, grade_temp;
+    string id_temp;
+    float score_temp;
+            
+    // Exchanging various information between the two students that needs to be swapped
+    name_temp = StudentName[start],
+    id_temp = StudentId[start],
+    score_temp = StudentTotalScore[start],
+    grade_temp = StudentGrade[start],
+    StudentName[start] = StudentName[index],
+    StudentId[start] = StudentId[index],
+    StudentTotalScore[start] = StudentTotalScore[index],
+    StudentGrade[start] = StudentGrade[index],
+    StudentName[index] = name_temp,
+    StudentId[index] = id_temp,
+    StudentTotalScore[index] = score_temp,
+    StudentGrade[index] = grade_temp;
+}
+
 void ClassManagement::Sorting()
 {
-    bool is_student_names_sorted = 0;
-    while (!is_student_names_sorted)
+    // Using selection sort technique to sort the names of the students
+    int minIndex;
+    string studentName;
+    for(int start = 0; start < (student_index - 1); start++)
     {
-        is_student_names_sorted = 1;
-        int count = 0;
-        while (count <= student_index - 2)
+        minIndex = start;
+        studentName = StudentName[start];
+        for(int index = start + 1; index < student_index; index++)
         {
-            string name_temp, grade_temp;
-            string id_temp;
-            float score_temp;
-            if (StudentName[count] > StudentName[static_cast<std::vector<std::string, std::allocator<std::string>>::size_type>(count) + 1])
+            if (StudentName[index] < studentName)
             {
-                // Exchanging various information between the two students that needs to be swapped.
-                name_temp = StudentName[count],
-                id_temp = StudentId[count],
-                score_temp = StudentTotalScore[count],
-                grade_temp = StudentGrade[count],
-                StudentName[count] = StudentName[static_cast<std::vector<std::string, std::allocator<std::string>>::size_type>(count) + 1],
-                StudentId[count] = StudentId[static_cast<std::vector<std::string, std::allocator<std::string>>::size_type>(count) + 1],
-                StudentTotalScore[count] = StudentTotalScore[static_cast<std::vector<float, std::allocator<float>>::size_type>(count) + 1],
-                StudentGrade[count] = StudentGrade[static_cast<std::vector<std::string, std::allocator<std::string>>::size_type>(count) + 1],
-                StudentName[static_cast<std::vector<std::string, std::allocator<std::string>>::size_type>(count) + 1] = name_temp,
-                StudentId[static_cast<std::vector<std::string, std::allocator<std::string>>::size_type>(count) + 1] = id_temp,
-                StudentTotalScore[static_cast<std::vector<float, std::allocator<float>>::size_type>(count) + 1] = score_temp,
-                StudentGrade[static_cast<std::vector<std::string, std::allocator<std::string>>::size_type>(count) + 1] = grade_temp,
-                is_student_names_sorted = 0;
+                studentName = StudentName[index];
+                minIndex = index;
             }
-            count++;
         }
+        SwapStudentInfo(start, minIndex);
     }
+
+    
 }
 
 void ClassManagement::setFilePath()
