@@ -102,7 +102,7 @@ void ClassManagement::studentInfoForm(HANDLE screen)
     cout << left << setw(60) << "******************************************************************" << endl;
 }
 
-void ClassManagement::getStudentNames()
+void ClassManagement::setStudentName()
 { // Getting student name from the user and storing it in the the student name array variable
     string studentName;
     placeCursor(screen, 5, 43);
@@ -140,7 +140,7 @@ void ClassManagement::is_alpha(string &student_name)
     }
 }
 
-void ClassManagement::getStudentId()
+void ClassManagement::setStudentId()
 { // Getting student id numbers from the user and storing it in the student id array variable
     bool is_id_already_exist = 1;
     string student_id;
@@ -211,7 +211,7 @@ void ClassManagement::is_alphaNum(string &student_id)
     }
 }
 
-void ClassManagement::getStudentNumGrade()
+void ClassManagement::setStudentTotalScore()
 { // Getting student total score from the user and storing it in the student number grade array variable
     float total_score = 0.0;
     do
@@ -277,7 +277,7 @@ void ClassManagement::is_digit(string &score)
     }
 }
 
-void ClassManagement::getStudentLetterGrade()
+void ClassManagement::setStudentGrade()
 {
     string grade;
     // Using tenary operator to assign the appropriate letter grade to a student based on the student total score
