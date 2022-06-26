@@ -11,7 +11,9 @@ void Option_3();
 void isOptionDigit(string &);
 
 // Declaring global object
-ClassManagement student;
+ClassManagement stud;
+// Declaring a pointer that points to an object of ClassManagement
+ClassManagement *student = &stud; 
 int main()
 {
 
@@ -27,6 +29,8 @@ int main()
       Option_2();
   } while (choice != 3);
   Option_3();
+  delete student;
+  student = nullptr;
   return 0;
 }
 
@@ -37,35 +41,35 @@ int Menu()
   system("cls");
   int num;
   string choice;
-  student.placeCursor(screen, 3, 20);
+  student->placeCursor(screen, 3, 20);
   cout << "----------------------------------\n";
-  student.placeCursor(screen, 4, 20);
+  student->placeCursor(screen, 4, 20);
   cout << "| HACKERSGODDEST GRADDING SYSTEM |\n";
-  student.placeCursor(screen, 5, 20);
+  student->placeCursor(screen, 5, 20);
   cout << "----------------------------------\n";
-  student.placeCursor(screen, 6, 20);
+  student->placeCursor(screen, 6, 20);
   cout << "1. RECORD CLASS INFORMATION TO A FILE" << endl;
-  student.placeCursor(screen, 7, 20);
+  student->placeCursor(screen, 7, 20);
   cout << "2. RETRIEVE CLASS INFORMATION FROM A FILE" << endl;
-  student.placeCursor(screen, 8, 20);
+  student->placeCursor(screen, 8, 20);
   cout << "3. EXIT THE PROGRAM" << endl;
-  student.placeCursor(screen, 9, 20);
+  student->placeCursor(screen, 9, 20);
   cout << "Enter option...";
   do
   {
-    student.placeCursor(screen, 9, 35);
+    student->placeCursor(screen, 9, 35);
     getline(cin, choice);
     while (choice.empty())
     {
-      student.placeCursor(screen, 9, 35);
+      student->placeCursor(screen, 9, 35);
       getline(cin, choice);
     }
     isOptionDigit(choice);
     num = stoi(choice);
     if (num != 1 && num != 2 && num != 3)
-      student.placeCursor(screen, 10, 20);
+      student->placeCursor(screen, 10, 20);
     cout << "You have entered invalid option\n";
-    student.placeCursor(screen, 9, 20);
+    student->placeCursor(screen, 9, 20);
     cout << "Enter option...";
   } while (num != 1 && num != 2 && num != 3);
   system("cls");
@@ -74,29 +78,31 @@ int Menu()
 
 void isOptionDigit(string &score)
 {
-  bool flag = 1;
-  while (flag)
+  bool isInteger = 0;
+  while (isInteger)
   {
-    flag = 0;
+    isInteger = 1;
     for (int i = 0; i < score.length(); i++)
     {
       if (!isdigit(score[i]) && score[i] != '.' && score[i] != '+' && score[i] != '-') // if score[i] is a number, this condition will evaluate to false else it will evaluate to true.
       {
-        flag = 1;
+        isInteger = 0;
         break;
       }
     }
-    if (flag)
+    if(score == "+" || score == "-")
+       isInteger = 0;
+    if (!isInteger)
     {
-      student.placeCursor(screen, 10, 20);
+      student->placeCursor(screen, 10, 20);
       cout << "You have entered invalid option\n";
-      student.placeCursor(screen, 9, 20);
+      student->placeCursor(screen, 9, 20);
       cout << "Enter option...";
-      student.placeCursor(screen, 9, 35);
+      student->placeCursor(screen, 9, 35);
       getline(cin, score);
       while (score.empty())
       {
-        student.placeCursor(screen, 9, 35);
+        student->placeCursor(screen, 9, 35);
         getline(cin, score);
       }
     }
@@ -105,44 +111,44 @@ void isOptionDigit(string &score)
 
 void Option_1()
 {
-  student.setFilePath();
-  student.studentInfoForm(screen);
-  student.setStudentName();
-  if (student.getStudentName() == "DONE")
+  student->setFilePath();
+  student->studentInfoForm(screen);
+  student->setStudentName();
+  if (student->getStudentName() == "DONE")
     return;
-  student.setStudentId();
-  student.setStudentTotalScore();
-  student.setStudentGrade();
-  student.clearInput();
-  student.firstAssign();
+  student->setStudentId();
+  student->setStudentTotalScore();
+  student->setStudentGrade();
+  student->clearInput();
+  student->firstAssign();
 
-  ++student;
-  student.setStudentName();
-  while (student.getStudentName() != "DONE")
+  ++(*student);
+  student->setStudentName();
+  while (student->getStudentName() != "DONE")
   {
-    student.setStudentId();
-    student.setStudentTotalScore();
-    student.setStudentGrade();
-    student.clearInput();
-    student.otherCalculations();
-    ++student;
-    student.setStudentName();
+    student->setStudentId();
+    student->setStudentTotalScore();
+    student->setStudentGrade();
+    student->clearInput();
+    student->otherCalculations();
+    ++(*student);
+    student->setStudentName();
   }
-  student.getClassAvg();
-  student.Sorting();
-  if (student.getIndex() != 0)
+  student->getClassAvg();
+  student->Sorting();
+  if (student->getIndex() != 0)
   {
-    student.TableHeader();
-    student.ClassInfo();
-    student.ClassEvaluation();
+    student->TableHeader();
+    student->ClassInfo();
+    student->ClassEvaluation();
   }
   system("PAUSE");
 }
 
 void Option_2()
 {
-  student.setFilePath();
-  student.readFromFile();
+  student->setFilePath();
+  student->readFromFile();
   system("PAUSE");
 }
 
