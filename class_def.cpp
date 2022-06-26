@@ -120,14 +120,19 @@ void ClassManagement::is_alpha(string &student_name)
     while (!isAlpha)
     {
         isAlpha = 1;
+        int hyphen =  0;
         for (int y = 0; y < student_name.length(); y++)
         {
-            if (!(isalpha(student_name[y]) || student_name[y] == ' '))
+            if (!(isalpha(student_name[y]) || student_name[y] == ' ' || student_name[y] == '-'))
             {
                 isAlpha = 0;
                 break;
             }
+            if(student_name[y] == '-')
+               hyphen++;
         }
+        if(hyphen > 1)
+           isAlpha = 0;
         if (!isAlpha)
         {
             clearError();
@@ -161,9 +166,6 @@ void ClassManagement::setStudentId()
                 clearError();
                 placeCursor(screen, 14, 25);
                 cout << left << setw(60) << "ERROR : ID already exist\n";
-                placeCursor(screen, 7, 43);
-                getline(cin, student_id);
-                isEmpty(student_id, 7, 43);
                 is_id_already_exist = 1;
             }
         }
@@ -281,7 +283,7 @@ void ClassManagement::setStudentGrade()
 {
     string grade;
     // Using tenary operator to assign the appropriate letter grade to a student based on the student total score
-    grade = StudentTotalScore[student_index] >= 90 ? "A" : (StudentTotalScore[student_index] < 90 && StudentTotalScore[student_index] >= 85) ? "A"
+    grade = StudentTotalScore[student_index] >= 90 ? "A+" : (StudentTotalScore[student_index] < 90 && StudentTotalScore[student_index] >= 85) ? "A"
                                              : (StudentTotalScore[student_index] < 85 && StudentTotalScore[student_index] >= 80)   ? "A-"
                                              : (StudentTotalScore[student_index] < 80 && StudentTotalScore[student_index] >= 75)   ? "B+"
                                              : (StudentTotalScore[student_index] < 75 && StudentTotalScore[student_index] >= 70)   ? "B"
@@ -552,4 +554,14 @@ void ClassManagement::readFromFile()
             cout << statement << endl;
         read_file.close();
     }
+}
+
+ClassManagement::~ClassManagement()
+{
+  score.clear(),StudentName.clear(),StudentId.clear(),StudentGrade.clear(), Student_pass_names.clear();
+  Student_pass_ids.clear(),Student_fail_names.clear(),Student_fail_ids.clear(),Student_above_avg_names.clear();
+  Student_above_avg_ids.clear(),Student_below_avg_names.clear(),Student_below_avg_ids.clear();
+  Student_exact_avg_names.clear(),Student_exact_avg_ids.clear(),file_path.clear(),StudentTotalScore.clear(); 
+  ClassAvg = 0.0, HighestScore = 0.0, LowestScore = 0.0, ClassTotalScore = 0.0;
+  StudentsAboveAvg = 0, StudentsBelowAvg = 0, StudentsExactAvg = 0,student_index = 0;
 }
