@@ -89,6 +89,7 @@ public:
   void is_alphaNum(string &);
   void is_digit(string &);
   void list(ofstream &, vector<string>, vector<string>, int);
+  ~ClassManagement();
 };
 
 
