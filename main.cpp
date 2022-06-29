@@ -8,12 +8,9 @@ int Menu();
 void Option_1();
 void Option_2();
 void Option_3();
-void isOptionDigit(string &);
 
-// Declaring global object
-ClassManagement stud;
-// Declaring a pointer that points to an object of ClassManagement
-ClassManagement *student = &stud; 
+// Declaring a pointer that point to class ClassManagement and dynamically allocating memory to it.
+ClassManagement *student = new ClassManagement; 
 int main()
 {
 
@@ -53,10 +50,11 @@ int Menu()
   cout << "2. RETRIEVE CLASS INFORMATION FROM A FILE" << endl;
   student->placeCursor(screen, 8, 20);
   cout << "3. EXIT THE PROGRAM" << endl;
-  student->placeCursor(screen, 9, 20);
-  cout << "Enter option...";
+  
   do
   {
+    student->placeCursor(screen, 9, 20);
+    cout << "Enter option...";
     student->placeCursor(screen, 9, 35);
     getline(cin, choice);
     while (choice.empty())
@@ -64,49 +62,15 @@ int Menu()
       student->placeCursor(screen, 9, 35);
       getline(cin, choice);
     }
-    isOptionDigit(choice);
-    num = stoi(choice);
-    if (num != 1 && num != 2 && num != 3)
-      student->placeCursor(screen, 10, 20);
-    cout << "You have entered invalid option\n";
-    student->placeCursor(screen, 9, 20);
-    cout << "Enter option...";
-  } while (num != 1 && num != 2 && num != 3);
+    if (choice != "1" && choice != "2" && choice != "3")
+      {
+        student->placeCursor(screen, 10, 20);
+        cout << "You have entered invalid option\n";
+      }
+  } while (choice != "1" && choice != "2" && choice != "3");
+  num = stoi(choice);
   system("cls");
   return num;
-}
-
-void isOptionDigit(string &score)
-{
-  bool isInteger = 0;
-  while (isInteger)
-  {
-    isInteger = 1;
-    for (int i = 0; i < score.length(); i++)
-    {
-      if (!isdigit(score[i]) && score[i] != '.' && score[i] != '+' && score[i] != '-') // if score[i] is a number, this condition will evaluate to false else it will evaluate to true.
-      {
-        isInteger = 0;
-        break;
-      }
-    }
-    if(score == "+" || score == "-")
-       isInteger = 0;
-    if (!isInteger)
-    {
-      student->placeCursor(screen, 10, 20);
-      cout << "You have entered invalid option\n";
-      student->placeCursor(screen, 9, 20);
-      cout << "Enter option...";
-      student->placeCursor(screen, 9, 35);
-      getline(cin, score);
-      while (score.empty())
-      {
-        student->placeCursor(screen, 9, 35);
-        getline(cin, score);
-      }
-    }
-  }
 }
 
 void Option_1()

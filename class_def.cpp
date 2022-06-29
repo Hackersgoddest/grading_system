@@ -265,7 +265,7 @@ void ClassManagement::is_digit(string &score)
                 }
             }
         }
-        if (score == "-" || score == "+")
+        if (score == "-" || score == "+" || score == ".")
             is_score_valid_number = 0;
         if (!is_score_valid_number)
         {
