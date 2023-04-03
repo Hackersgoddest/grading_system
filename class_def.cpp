@@ -20,9 +20,9 @@ using std::transform;
 using std::ws;
 
 // ClassManagement class member functions definitions
-ClassManagement::ClassManagement()
+ClassManagement::ClassManagement(string message)
 { // Default constructor definition
-    string welcomeMessage = "WELCOME TO HACKERSGODDEST GRADING SYSTEM";
+    string welcomeMessage = message;
     string symbol, space, mid_space;
     symbol.assign(welcomeMessage.length() + 4, '*');
     space.assign(welcomeMessage.length() + 2, ' ');
@@ -120,7 +120,7 @@ void ClassManagement::is_alpha(string &student_name)
     while (!isAlpha)
     {
         isAlpha = 1;
-        int hyphen =  0;
+        int hyphen = 0;
         for (int y = 0; y < student_name.length(); y++)
         {
             if (!(isalpha(student_name[y]) || student_name[y] == ' ' || student_name[y] == '-'))
@@ -128,11 +128,11 @@ void ClassManagement::is_alpha(string &student_name)
                 isAlpha = 0;
                 break;
             }
-            if(student_name[y] == '-')
-               hyphen++;
+            if (student_name[y] == '-')
+                hyphen++;
         }
-        if(hyphen > 1)
-           isAlpha = 0;
+        if (hyphen > 1)
+            isAlpha = 0;
         if (!isAlpha)
         {
             clearError();
@@ -284,16 +284,16 @@ void ClassManagement::setStudentGrade()
     string grade;
     // Using tenary operator to assign the appropriate letter grade to a student based on the student total score
     grade = StudentTotalScore[student_index] >= 90 ? "A+" : (StudentTotalScore[student_index] < 90 && StudentTotalScore[student_index] >= 85) ? "A"
-                                             : (StudentTotalScore[student_index] < 85 && StudentTotalScore[student_index] >= 80)   ? "A-"
-                                             : (StudentTotalScore[student_index] < 80 && StudentTotalScore[student_index] >= 75)   ? "B+"
-                                             : (StudentTotalScore[student_index] < 75 && StudentTotalScore[student_index] >= 70)   ? "B"
-                                             : (StudentTotalScore[student_index] < 70 && StudentTotalScore[student_index] >= 65)   ? "B-"
-                                             : (StudentTotalScore[student_index] < 65 && StudentTotalScore[student_index] >= 60)   ? "C+"
-                                             : (StudentTotalScore[student_index] < 60 && StudentTotalScore[student_index] >= 50)   ? "C"
-                                             : (StudentTotalScore[student_index] < 50 && StudentTotalScore[student_index] >= 45)   ? "C-"
-                                             : (StudentTotalScore[student_index] < 45 && StudentTotalScore[student_index] >= 40)   ? "D"
-                                             : (StudentTotalScore[student_index] < 40 && StudentTotalScore[student_index] >= 30)   ? "E"
-                                                                                                               : "F";
+                                                        : (StudentTotalScore[student_index] < 85 && StudentTotalScore[student_index] >= 80)   ? "A-"
+                                                        : (StudentTotalScore[student_index] < 80 && StudentTotalScore[student_index] >= 75)   ? "B+"
+                                                        : (StudentTotalScore[student_index] < 75 && StudentTotalScore[student_index] >= 70)   ? "B"
+                                                        : (StudentTotalScore[student_index] < 70 && StudentTotalScore[student_index] >= 65)   ? "B-"
+                                                        : (StudentTotalScore[student_index] < 65 && StudentTotalScore[student_index] >= 60)   ? "C+"
+                                                        : (StudentTotalScore[student_index] < 60 && StudentTotalScore[student_index] >= 50)   ? "C"
+                                                        : (StudentTotalScore[student_index] < 50 && StudentTotalScore[student_index] >= 45)   ? "C-"
+                                                        : (StudentTotalScore[student_index] < 45 && StudentTotalScore[student_index] >= 40)   ? "D"
+                                                        : (StudentTotalScore[student_index] < 40 && StudentTotalScore[student_index] >= 30)   ? "E"
+                                                                                                                                              : "F";
     StudentGrade.push_back(grade);
 }
 
@@ -327,7 +327,7 @@ void ClassManagement::SwapStudentInfo(int &start, int &index)
     string name_temp, grade_temp;
     string id_temp;
     float score_temp;
-            
+
     // Exchanging various information between the two students that needs to be swapped
     name_temp = StudentName[start],
     id_temp = StudentId[start],
@@ -348,11 +348,11 @@ void ClassManagement::Sorting()
     // Using selection sort technique to sort the names of the students
     int minIndex;
     string studentName;
-    for(int start = 0; start < (student_index - 1); start++)
+    for (int start = 0; start < (student_index - 1); start++)
     {
         minIndex = start;
         studentName = StudentName[start];
-        for(int index = start + 1; index < student_index; index++)
+        for (int index = start + 1; index < student_index; index++)
         {
             if (StudentName[index] < studentName)
             {
@@ -362,21 +362,42 @@ void ClassManagement::Sorting()
         }
         SwapStudentInfo(start, minIndex);
     }
-
-    
 }
 
 void ClassManagement::setFilePath()
 {
-    string folder_path, file_name;
-    std::cout << "Enter the full path of the folder(please make sure the path exist).....";
-    getline(cin >> ws, folder_path);
-    folder_path = folder_path + "/";
-    std::cout << "Enter file name....";
-    getline(cin >> ws, file_name);
-    file_name += ".txt";
-    folder_path += file_name;
-    file_path = folder_path;
+    bool isValidPath;
+    do
+    {
+        isValidPath = true;
+        std::cout << "Enter the full path to the file(please make sure the path exist).....";
+        getline(cin >> ws, file_path);
+        ofstream copyToFile(getFilePath(), ios::app);
+        if (copyToFile.fail())
+        {
+            cerr << "Invalid path, Try again!" << endl;
+            isValidPath = false;
+        }
+        copyToFile.close();
+    } while (!isValidPath);
+}
+
+void ClassManagement::getPath()
+{
+    bool isValidPath;
+    do
+    {
+        isValidPath = true;
+        std::cout << "Enter the full path to the file(please make sure the path exist).....";
+        getline(cin >> ws, file_path);
+        ifstream read_file(file_path);
+        if (read_file.fail())
+        {
+            cerr << "Invalid path, Try again!" << endl;
+            isValidPath = false;
+        }
+        read_file.close();
+    } while (!isValidPath);
 }
 
 // WriteToFile class member function definitions
@@ -390,7 +411,7 @@ string ClassManagement::line()
 void ClassManagement::TableHeader()
 {
     string nm;
-    ofstream copyToFile(getFilePath(), ios::app);
+    ofstream copyToFile(getFilePath(), ios::trunc);
     if (copyToFile.fail())
     {
         cerr << "Unable to open file" << endl;
@@ -452,7 +473,7 @@ void ClassManagement::ClassEvaluation()
     }
     else
     {
-        int above_avg_count = 0, below_avg_count = 0, equal_avg_count = 0;  
+        int above_avg_count = 0, below_avg_count = 0, equal_avg_count = 0;
         for (int count = 0; count <= student_index - 1; count++) // This for loop help us iterate through all the students total scores enterred by the user hence help us find the appropriate values for a, b and r;
         {
             if (StudentTotalScore[count] > ClassAvg)
@@ -558,10 +579,10 @@ void ClassManagement::readFromFile()
 
 ClassManagement::~ClassManagement()
 {
-  score.clear(),StudentName.clear(),StudentId.clear(),StudentGrade.clear(), Student_pass_names.clear();
-  Student_pass_ids.clear(),Student_fail_names.clear(),Student_fail_ids.clear(),Student_above_avg_names.clear();
-  Student_above_avg_ids.clear(),Student_below_avg_names.clear(),Student_below_avg_ids.clear();
-  Student_exact_avg_names.clear(),Student_exact_avg_ids.clear(),file_path.clear(),StudentTotalScore.clear(); 
-  ClassAvg = 0.0, HighestScore = 0.0, LowestScore = 0.0, ClassTotalScore = 0.0;
-  StudentsAboveAvg = 0, StudentsBelowAvg = 0, StudentsExactAvg = 0,student_index = 0;
+    score.clear(), StudentName.clear(), StudentId.clear(), StudentGrade.clear(), Student_pass_names.clear();
+    Student_pass_ids.clear(), Student_fail_names.clear(), Student_fail_ids.clear(), Student_above_avg_names.clear();
+    Student_above_avg_ids.clear(), Student_below_avg_names.clear(), Student_below_avg_ids.clear();
+    Student_exact_avg_names.clear(), Student_exact_avg_ids.clear(), file_path.clear(), StudentTotalScore.clear();
+    ClassAvg = 0.0, HighestScore = 0.0, LowestScore = 0.0, ClassTotalScore = 0.0;
+    StudentsAboveAvg = 0, StudentsBelowAvg = 0, StudentsExactAvg = 0, student_index = 0;
 }

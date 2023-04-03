@@ -45,7 +45,8 @@ private:
   int StudentsAboveAvg, StudentsBelowAvg, StudentsExactAvg;
 
 public:
-  ClassManagement(); // Default constructor
+  ClassManagement(){}; // Default constructor
+  ClassManagement(string message);
   // Creating member functions
   // For console cursor control
   HANDLE screen = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -57,6 +58,7 @@ public:
   // For files operations functions
   void readFromFile();
   void setFilePath();
+  void getPath();
   string getFilePath() { return file_path; }
 
 

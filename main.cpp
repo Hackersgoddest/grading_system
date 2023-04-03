@@ -9,13 +9,12 @@ void Option_1();
 void Option_2();
 void Option_3();
 
-// Declaring a pointer that point to class ClassManagement and dynamically allocating memory to it.
-ClassManagement *student = new ClassManagement; 
 int main()
 {
 
+  system("cls");
   int choice;
-  // WelcomeMessage();
+  ClassManagement *student = new ClassManagement("WELCOME TO HACKERSGODDEST GRADING SYSTEM");
 
   do
   {
@@ -35,6 +34,8 @@ HANDLE screen = GetStdHandle(STD_OUTPUT_HANDLE);
 
 int Menu()
 {
+  ClassManagement *student = new ClassManagement;
+
   system("cls");
   int num;
   string choice;
@@ -50,7 +51,7 @@ int Menu()
   cout << "2. RETRIEVE CLASS INFORMATION FROM A FILE" << endl;
   student->placeCursor(screen, 8, 20);
   cout << "3. EXIT THE PROGRAM" << endl;
-  
+
   do
   {
     student->placeCursor(screen, 9, 20);
@@ -63,18 +64,22 @@ int Menu()
       getline(cin, choice);
     }
     if (choice != "1" && choice != "2" && choice != "3")
-      {
-        student->placeCursor(screen, 10, 20);
-        cout << "You have entered invalid option\n";
-      }
+    {
+      student->placeCursor(screen, 10, 20);
+      cout << "You have entered invalid option\n";
+    }
   } while (choice != "1" && choice != "2" && choice != "3");
   num = stoi(choice);
+  delete student;
+  student = nullptr;
   system("cls");
   return num;
 }
 
 void Option_1()
 {
+  ClassManagement *student = new ClassManagement;
+
   student->setFilePath();
   student->studentInfoForm(screen);
   student->setStudentName();
@@ -106,13 +111,19 @@ void Option_1()
     student->ClassInfo();
     student->ClassEvaluation();
   }
+  delete student;
+  student = nullptr;
   system("PAUSE");
 }
 
 void Option_2()
 {
-  student->setFilePath();
+  ClassManagement *student = new ClassManagement;
+
+  student->getPath();
   student->readFromFile();
+  delete student;
+  student = nullptr;
   system("PAUSE");
 }
 
